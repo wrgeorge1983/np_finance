@@ -5,8 +5,8 @@ import (
 	"np_finance/internal/ws_Step"
 )
 
-func NewForm(schedule *config.Schedule) *ws_Step.Form {
-	return &ws_Step.Form{
+func NewForm(schedule *config.Schedule) *ws_Step.WorkSheet {
+	return &ws_Step.WorkSheet{
 		Schedule: *schedule,
 		Steps: []ws_Step.Step{
 			&Step1{},

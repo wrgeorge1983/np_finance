@@ -12,7 +12,7 @@ type Step1 struct {
 	OutputMother, OutputFather, OutputCombined big.Rat
 }
 
-func (s *Step1) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
+func (s *Step1) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
 	// Get the mother and father gross monthly income
 	mother, _ := config.Gsi(1, "mother")
 	father, _ := config.Gsi(1, "father")
@@ -36,8 +36,8 @@ type Step2 struct {
 	OutputMother, OutputFather big.Rat
 }
 
-func (s *Step2) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
-	steps := &form.Steps
+func (s *Step2) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
+	steps := &worksheet.Steps
 	step1 := (*steps)[0].(*Step1)
 	s.OutputMother.Quo(&step1.OutputMother, &step1.OutputCombined)
 	s.OutputFather.Quo(&step1.OutputFather, &step1.OutputCombined)
@@ -54,7 +54,7 @@ type Step3 struct {
 	OutputChildren big.Rat
 }
 
-func (s *Step3) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
+func (s *Step3) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
 	children, _ := config.Gsi(3, "number")
 	s.OutputChildren.SetString(children)
 }
@@ -68,15 +68,15 @@ type Step4 struct {
 	Output big.Rat
 }
 
-func (s *Step4) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
-	steps := &form.Steps
+func (s *Step4) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
+	steps := &worksheet.Steps
 	step1 := (*steps)[0].(*Step1)
 	step3 := (*steps)[2].(*Step3)
 	f, _ := step1.OutputCombined.Float64()
 	income := int(f)
 	f, _ = step3.OutputChildren.Float64()
 	children := int(f)
-	support, err := form.Schedule.GetSupport(income, children)
+	support, err := worksheet.Schedule.GetSupport(income, children)
 	if err != nil {
 		panic(err)
 	}

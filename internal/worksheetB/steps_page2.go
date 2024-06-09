@@ -13,7 +13,7 @@ type Step12 struct {
 	OutputMother, OutputFather, OutputCombined big.Rat
 }
 
-func (s *Step12) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
+func (s *Step12) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
 	mother, _ := config.Gsi(12, "mother")
 	father, _ := config.Gsi(12, "father")
 	s.OutputMother.SetString(mother)
@@ -33,7 +33,7 @@ type Step13 struct {
 	OutputMother, OutputFather, OutputCombined big.Rat
 }
 
-func (s *Step13) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
+func (s *Step13) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
 	mother, _ := config.Gsi(13, "mother")
 	father, _ := config.Gsi(13, "father")
 	s.OutputMother.SetString(mother)
@@ -54,7 +54,7 @@ type Step14 struct {
 	OutputMother, OutputFather, OutputCombined big.Rat
 }
 
-func (s *Step14) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
+func (s *Step14) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
 	mother, _ := config.Gsi(14, "mother")
 	father, _ := config.Gsi(14, "father")
 	s.OutputMother.SetString(mother)
@@ -75,8 +75,8 @@ type Step15 struct {
 	OutputMother, OutputFather, OutputCombined big.Rat
 }
 
-func (s *Step15) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
-	steps := &form.Steps
+func (s *Step15) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
+	steps := &worksheet.Steps
 	step12 := (*steps)[11].(*Step12)
 	step13 := (*steps)[12].(*Step13)
 	step14 := (*steps)[13].(*Step14)
@@ -100,8 +100,8 @@ type Step16 struct {
 	OutputMother, OutputFather big.Rat
 }
 
-func (s *Step16) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
-	steps := &form.Steps
+func (s *Step16) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
+	steps := &worksheet.Steps
 	step15 := (*steps)[14].(*Step15)
 	step2 := (*steps)[1].(*Step2)
 	s.OutputMother.Mul(&step15.OutputCombined, &step2.OutputMother)
@@ -121,8 +121,8 @@ type Step17 struct {
 	Payer                      string
 }
 
-func (s *Step17) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
-	steps := &form.Steps
+func (s *Step17) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
+	steps := &worksheet.Steps
 	step16 := (*steps)[15].(*Step16)
 	step15 := (*steps)[14].(*Step15)
 	s.OutputMother.Sub(&step15.OutputMother, &step16.OutputMother)
@@ -147,8 +147,8 @@ type Step18 struct {
 	Payer  string
 }
 
-func (s *Step18) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
-	steps := &form.Steps
+func (s *Step18) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
+	steps := &worksheet.Steps
 	step11 := (*steps)[10].(*Step11)
 	step17 := (*steps)[16].(*Step17)
 	var step17Output big.Rat
