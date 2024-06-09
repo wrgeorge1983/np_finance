@@ -20,7 +20,7 @@ func main() {
 	wsCfg := &config.WorksheetConfig{}
 	wsCfg = wsCfg.ReadConfig(configFilename)
 
-	//for _, step := range wsCfg.StepInputs {
+	//for _, step := range wsCfg.Inputs {
 	//	fmt.Println(step)
 	//}
 	schedule := wsCfg.ReadSchedule()

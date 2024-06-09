@@ -2,22 +2,13 @@ package worksheetB
 
 import (
 	"np_finance/internal/config"
+	"np_finance/internal/ws_Step"
 )
 
-type Step interface {
-	Execute(config *config.WorksheetConfig, form *Form)
-	Display() string
-}
-
-type Form struct {
-	Schedule config.Schedule
-	Steps    []Step
-}
-
-func NewForm(schedule *config.Schedule) *Form {
-	return &Form{
+func NewForm(schedule *config.Schedule) *ws_Step.Form {
+	return &ws_Step.Form{
 		Schedule: *schedule,
-		Steps: []Step{
+		Steps: []ws_Step.Step{
 			&Step1{},
 			&Step2{},
 			&Step3{},

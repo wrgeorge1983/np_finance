@@ -5,6 +5,7 @@ import (
 	"math/big"
 
 	"np_finance/internal/config"
+	"np_finance/internal/ws_Step"
 )
 
 type Step5 struct {
@@ -12,7 +13,7 @@ type Step5 struct {
 	OutputMother, OutputFather, OutputCombined big.Rat
 }
 
-func (s *Step5) Execute(config *config.WorksheetConfig, form *Form) {
+func (s *Step5) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
 	mother, _ := config.Gsi(5, "mother")
 	father, _ := config.Gsi(5, "father")
 	s.OutputMother.SetString(mother)
@@ -32,7 +33,7 @@ type Step6 struct {
 	OutputMother, OutputFather, OutputCombined big.Rat
 }
 
-func (s *Step6) Execute(config *config.WorksheetConfig, form *Form) {
+func (s *Step6) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
 	mother, _ := config.Gsi(6, "mother")
 	father, _ := config.Gsi(6, "father")
 	s.OutputMother.SetString(mother)
@@ -53,7 +54,7 @@ type Step7 struct {
 	OutputMother, OutputFather, OutputCombined big.Rat
 }
 
-func (s *Step7) Execute(config *config.WorksheetConfig, form *Form) {
+func (s *Step7) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
 	mother, _ := config.Gsi(7, "mother")
 	father, _ := config.Gsi(7, "father")
 	s.OutputMother.SetString(mother)
@@ -74,7 +75,7 @@ type Step8 struct {
 	OutputMother, OutputFather, OutputCombined big.Rat
 }
 
-func (s *Step8) Execute(config *config.WorksheetConfig, form *Form) {
+func (s *Step8) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
 	steps := &form.Steps
 	step4 := (*steps)[3].(*Step4)
 	step5 := (*steps)[4].(*Step5)
@@ -101,7 +102,7 @@ type Step9 struct {
 	OutputMother, OutputFather big.Rat
 }
 
-func (s *Step9) Execute(config *config.WorksheetConfig, form *Form) {
+func (s *Step9) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
 	steps := &form.Steps
 	step8 := (*steps)[7].(*Step8)
 	step2 := (*steps)[1].(*Step2)
@@ -120,7 +121,7 @@ type Step10 struct {
 	OutputMother, OutputFather, OutputCombined big.Rat
 }
 
-func (s *Step10) Execute(config *config.WorksheetConfig, form *Form) {
+func (s *Step10) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
 	steps := &form.Steps
 	step8 := (*steps)[7].(*Step8)
 	s.OutputMother = step8.OutputMother
@@ -141,7 +142,7 @@ type Step11 struct {
 	OutputMother, OutputFather big.Rat
 }
 
-func (s *Step11) Execute(config *config.WorksheetConfig, form *Form) {
+func (s *Step11) Execute(config *config.WorksheetConfig, form *ws_Step.Form) {
 	steps := &form.Steps
 	step9 := (*steps)[8].(*Step9)
 	step10 := (*steps)[9].(*Step10)
