@@ -25,8 +25,8 @@ type InputFormData struct {
 	FInsuranceExp    string `form:"fatherInsuranceExpense"`
 	MChildcareExp    string `form:"motherChildcareExpense"`
 	FChildcareExp    string `form:"fatherChildcareExpense"`
-	MOtherExpense    string `form:"motherOtherExpense"`
-	FOtherExpense    string `form:"fatherOtherExpense"`
+	MOtherExp        string `form:"motherOtherExpense"`
+	FOtherExp        string `form:"fatherOtherExpense"`
 
 	ScheduleTypes []ScheduleType
 }
@@ -44,8 +44,8 @@ func DefaultFormData() InputFormData {
 		FInsuranceExp:    "0",
 		MChildcareExp:    "0",
 		FChildcareExp:    "100",
-		MOtherExpense:    "0",
-		FOtherExpense:    "100",
+		MOtherExp:        "0",
+		FOtherExp:        "100",
 		ScheduleTypes:    ScheduleTypes,
 	}
 }
