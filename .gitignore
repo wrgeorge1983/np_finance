@@ -25,3 +25,4 @@ privateConfigs/
 .idea/
 
 build/
+tmp/
