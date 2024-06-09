@@ -14,8 +14,14 @@ type Step1 struct {
 
 func (s *Step1) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
 	// Get the mother and father gross monthly income
-	mother, _ := config.Gsi(1, "mother")
-	father, _ := config.Gsi(1, "father")
+	mother, err := config.GetNamedInput("motherSalary")
+	if err != nil {
+		panic(err)
+	}
+	father, err := config.GetNamedInput("fatherSalary")
+	if err != nil {
+		panic(err)
+	}
 
 	s.OutputMother.SetString(mother)
 	s.OutputFather.SetString(father)
@@ -55,7 +61,10 @@ type Step3 struct {
 }
 
 func (s *Step3) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
-	children, _ := config.Gsi(3, "number")
+	children, err := config.GetNamedInput("children")
+	if err != nil {
+		panic(err)
+	}
 	s.OutputChildren.SetString(children)
 }
 
@@ -132,8 +141,14 @@ type Step7 struct {
 }
 
 func (s *Step7) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
-	mother, _ := config.Gsi(7, "mother")
-	father, _ := config.Gsi(7, "father")
+	mother, err := config.GetNamedInput("motherDays")
+	if err != nil {
+		panic(err)
+	}
+	father, err := config.GetNamedInput("fatherDays")
+	if err != nil {
+		panic(err)
+	}
 	s.OutputMother.SetString(mother)
 	s.OutputFather.SetString(father)
 }

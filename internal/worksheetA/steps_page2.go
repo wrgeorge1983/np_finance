@@ -14,8 +14,14 @@ type Step5 struct {
 }
 
 func (s *Step5) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
-	mother, _ := config.Gsi(5, "mother")
-	father, _ := config.Gsi(5, "father")
+	mother, err := config.GetNamedInput("motherInsurance")
+	if err != nil {
+		panic(err)
+	}
+	father, err := config.GetNamedInput("fatherInsurance")
+	if err != nil {
+		panic(err)
+	}
 	s.OutputMother.SetString(mother)
 	s.OutputFather.SetString(father)
 	s.OutputCombined.Add(&s.OutputMother, &s.OutputFather)
@@ -34,8 +40,14 @@ type Step6 struct {
 }
 
 func (s *Step6) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
-	mother, _ := config.Gsi(6, "mother")
-	father, _ := config.Gsi(6, "father")
+	mother, err := config.GetNamedInput("motherChildcare")
+	if err != nil {
+		panic(err)
+	}
+	father, err := config.GetNamedInput("fatherChildcare")
+	if err != nil {
+		panic(err)
+	}
 	s.OutputMother.SetString(mother)
 	s.OutputFather.SetString(father)
 	s.OutputCombined.Add(&s.OutputMother, &s.OutputFather)
@@ -55,8 +67,14 @@ type Step7 struct {
 }
 
 func (s *Step7) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
-	mother, _ := config.Gsi(7, "mother")
-	father, _ := config.Gsi(7, "father")
+	mother, err := config.GetNamedInput("motherOtherExpense")
+	if err != nil {
+		panic(err)
+	}
+	father, err := config.GetNamedInput("fatherOtherExpense")
+	if err != nil {
+		panic(err)
+	}
 	s.OutputMother.SetString(mother)
 	s.OutputFather.SetString(father)
 	s.OutputCombined.Add(&s.OutputMother, &s.OutputFather)

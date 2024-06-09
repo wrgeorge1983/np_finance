@@ -12,10 +12,11 @@ import (
 )
 
 type WorksheetConfig struct {
-	Title      string `yaml:"title"`
-	Worksheet  string `yaml:"worksheet"`
-	Schedule   string `yaml:"schedule"`
-	StepInputs []struct {
+	Title       string            `yaml:"title"`
+	Worksheet   string            `yaml:"worksheet"`
+	Schedule    string            `yaml:"schedule"`
+	NamedInputs map[string]string `yaml:"namedInputs"`
+	StepInputs  []struct {
 		Step   int    `yaml:"step"`
 		Title  string `yaml:"title"`
 		Inputs []struct {
@@ -35,21 +36,11 @@ func (c *WorksheetConfig) ReadConfig(filename string) *WorksheetConfig {
 	return c
 }
 
-func (c *WorksheetConfig) GetStepInput(step int, name string) (string, error) {
-	for _, s := range c.StepInputs {
-		if s.Step == step {
-			for _, i := range s.Inputs {
-				if i.Name == name {
-					return i.Value, nil
-				}
-			}
-		}
+func (c *WorksheetConfig) GetNamedInput(name string) (string, error) {
+	if value, ok := c.NamedInputs[name]; ok {
+		return value, nil
 	}
-	return "", fmt.Errorf("step %d, input %s not found", step, name)
-}
-
-func (c *WorksheetConfig) Gsi(step int, name string) (string, error) {
-	return c.GetStepInput(step, name)
+	return "", fmt.Errorf("named input %s not found", name)
 }
 
 func (c *WorksheetConfig) ReadSchedule() *Schedule {
