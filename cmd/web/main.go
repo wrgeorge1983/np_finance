@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"io"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
@@ -50,7 +51,7 @@ func main() {
 	}
 
 	app.GET("/", func(c echo.Context) error {
-		return c.Render(200, "runIndex", "Hello, World!")
+		return c.Redirect(302, "/run")
 	})
 
 	app.Logger.Fatal(app.Start(":8080"))

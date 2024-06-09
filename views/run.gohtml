@@ -7,15 +7,124 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/css/index.css">
         <script src="https://unpkg.com/htmx.org/dist/htmx.min.js"></script>
+        <script>
+            function limitDecimalPlaces(evt, count) {
+                if ((evt.target.value.indexOf('.') !== -1) && (evt.target.value.split('.')[1].length > count)) {
+                    evt.target.value = parseFloat(evt.target.value).toFixed(count);
+                }
+            }
+        </script>
     </head>
     <body>
-    <h1>Index  </h1>
+    <h1>Index </h1>
     <hr/>
-    <div> {{  template "run" . }} </div>
+    <div> {{  template "form" . }} </div>
     </body>
     </html>
 {{ end }}
 
-{{ block "run" . }}
-    <button hx-swap="afterend" hx-get="/run">Run</button>
+{{ block "form" . }}
+    <!-- form to collect the following inputs:
+    * schedule version (radio selector)
+    * run title (input with default value)
+    * number of children (between 1 and 6)
+    * mother salary
+    * father salary
+    * total salary (no input, just show the calculated value)
+    * 24-hour days w/ mother / week
+    * 24-hour days w/ father / week (no input, just show the calculated value)
+    * expense (insurance)
+    * expense (childcare)
+    * expense (other)
+    -->
+    <form id="inputForm" hx-post="start_run" hx-swap="outerHTML">
+        <div>
+            <label for="title">Run Title:</label>
+            <input type="text" id="title" name="title" placeholder="Run Title"
+                    {{ if .Title }}
+                value="{{ .Title }}"
+                    {{ end }}
+            >
+        </div>
+        <div>
+            <label for="scheduleVersion">Schedule:</label>
+            {{ range .ScheduleTypes }}
+                <input type="radio" id="scheduleVersion" name="scheduleVersion" value="{{ .Value }}"
+                    {{ if eq .Value $.ScheduleVersion }}
+                        checked
+                    {{ end }}
+                >
+                <label for="{{ .Value }}">{{ .Description }}</label>
+            {{ end }}
+        </div>
+        <div>
+            <label for="children">Number of children:</label>
+            <input type="number" id="children" name="children" min="1" max="6" oninput="limitDecimalPlaces(event, 0)"
+                {{ if .NumberOfChildren }}
+                    value="{{ .NumberOfChildren }}"
+                {{ end }}
+            >
+        </div>
+        <div>
+            <label for="mother">Mother salary:</label>
+            <input type="number" id="mother" name="mother" placeholder="numbers only" oninput="limitDecimalPlaces(event, 2)"
+                {{ if .MSalary }}
+                    value="{{ .MSalary }}"
+                {{ end }}
+            >
+        </div>
+        <div>
+            <label for="father">Father salary:</label>
+            <input type="number" id="father" name="father" placeholder="numbers only" oninput="limitDecimalPlaces(event, 2)"
+                {{ if .FSalary }}
+                    value="{{ .FSalary }}"
+                {{ end }}
+            >
+        </div>
+        <div>
+            <label for="total">Total salary:</label>
+            <output id="total" name="total" for="mother father"></output>
+        </div>
+        <div>
+            <label for="motherDays">24-hour days w/ mother / week:</label>
+            <input type="number" id="motherDays" name="motherDays" min="0" max="7" oninput="limitDecimalPlaces(event, 0)"
+                {{ if .MDays }}
+                    value="{{ .MDays }}"
+                {{ end  }}
+            >
+        </div>
+        <div>
+            <label for="fatherDays">24-hour days w/ father / week:</label>
+            <output id="fatherDays" name="fatherDays" for="motherDays"></output>
+        </div>
+        <div>
+            <label for="insurance">Expense (insurance):</label>
+            <input type="number" id="insurance" name="insurance" oninput="limitDecimalPlaces(event, 2)"
+            {{ if .InsuranceExpense }}
+                value="{{ .InsuranceExpense }}"
+            {{ end }}
+            >
+        </div>
+        <div>
+            <label for="childcare">Expense (childcare):</label>
+            <input type="number" id="childcare" name="childcare" oninput="limitDecimalPlaces(event, 2)"
+            {{ if .ChildcareExpense }}
+                value="{{ .ChildcareExpense }}"
+            {{ end }}
+            >
+        </div>
+        <div>
+            <label for="other">Expense (other):</label>
+            <input type="number" id="other" name="other" oninput="limitDecimalPlaces(event, 2)"
+            {{ if .OtherExpense }}
+                value="{{ .OtherExpense }}"
+            {{ end }}
+            >
+        </div>
+        <div>
+            <button type="submit">Start Run</button>
+        </div>
+    </form>
+
+
 {{ end }}
