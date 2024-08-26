@@ -12,7 +12,7 @@
     * expense (childcare)
     * expense (other)
     -->
-    <form id="inputForm" hx-post="start_run" hx-target="#runOutput">
+    <form id="inputForm" hx-post="run/start" hx-target="#runOutput">
         <div>
             <label for="title">Run Title:</label>
             <input type="text" id="title" name="title" placeholder="Run Title"
@@ -41,16 +41,18 @@
             >
         </div>
         <div>
-            <label for="mother">Mother salary:</label>
-            <input type="number" id="mother" name="mother" placeholder="numbers only" oninput="limitDecimalPlaces(event, 2)"
+            <label for="motherSalary">Mother salary:</label>
+            <input type="number" id="motherSalary" name="motherSalary" placeholder="numbers only"
+                   oninput="limitDecimalPlaces(event, 2)" step="0.01"
                     {{ if .MSalary }}
                         value="{{ .MSalary }}"
                     {{ end }}
             >
         </div>
         <div>
-            <label for="father">Father salary:</label>
-            <input type="number" id="father" name="father" placeholder="numbers only" oninput="limitDecimalPlaces(event, 2)"
+            <label for="fatherSalary">Father salary:</label>
+            <input type="number" id="fatherSalary" name="fatherSalary" placeholder="numbers only"
+                   oninput="limitDecimalPlaces(event, 2)" step="0.01"
                     {{ if .FSalary }}
                         value="{{ .FSalary }}"
                     {{ end }}
@@ -73,42 +75,42 @@
             >
         </div>
         <div>
-            <label for="insurance">Expense (insurance):</label>
-            <input type="number" id="insurance" name="insurance" oninput="limitDecimalPlaces(event, 2)"
+            <label for="motherInsuranceExpense">Expense (insurance):</label>
+            <input type="number" id="motherInsuranceExpense" name="motherInsuranceExpense" oninput="limitDecimalPlaces(event, 2)"
                     {{ if .MInsuranceExp }}
                         value="{{ .MInsuranceExp }}"
                     {{ end }}
             >
-            <label for="insurance">Expense (insurance):</label>
-            <input type="number" id="insurance" name="insurance" oninput="limitDecimalPlaces(event, 2)"
+            <label for="fatherInsuranceExpense">Expense (insurance):</label>
+            <input type="number" id="fatherInsuranceExpense" name="fatherInsuranceExpense" oninput="limitDecimalPlaces(event, 2)"
                     {{ if .FInsuranceExp }}
                         value="{{ .FInsuranceExp }}"
                     {{ end }}
             >
         </div>
         <div>
-            <label for="childcare">Expense (childcare):</label>
-            <input type="number" id="childcare" name="childcare" oninput="limitDecimalPlaces(event, 2)"
+            <label for="motherChildcareExpense">Expense (childcare):</label>
+            <input type="number" id="motherChildcareExpense" name="motherChildcareExpense" oninput="limitDecimalPlaces(event, 2)"
                     {{ if .MChildcareExp }}
                         value="{{ .MChildcareExp }}"
                     {{ end }}
             >
-            <label for="childcare">Expense (childcare):</label>
-            <input type="number" id="childcare" name="childcare" oninput="limitDecimalPlaces(event, 2)"
+            <label for="fatherChildcareExpense">Expense (childcare):</label>
+            <input type="number" id="fatherChildcareExpense" name="fatherChildcareExpense" oninput="limitDecimalPlaces(event, 2)"
                     {{ if .FChildcareExp }}
                         value="{{ .FChildcareExp }}"
                     {{ end }}
             >
         </div>
         <div>
-            <label for="other">Expense (other):</label>
-            <input type="number" id="other" name="other" oninput="limitDecimalPlaces(event, 2)"
+            <label for="motherOtherExpense">Expense (other):</label>
+            <input type="number" id="motherOtherExpense" name="motherOtherExpense" oninput="limitDecimalPlaces(event, 2)"
                     {{ if .MOtherExp }}
                         value="{{ .MOtherExp }}"
                     {{ end }}
             >
-            <label for="other">Expense (other):</label>
-            <input type="number" id="other" name="other" oninput="limitDecimalPlaces(event, 2)"
+            <label for="fatherOtherExpense">Expense (other):</label>
+            <input type="number" id="fatherOtherExpense" name="fatherOtherExpense" oninput="limitDecimalPlaces(event, 2)"
                     {{ if .FOtherExp }}
                         value="{{ .FOtherExp }}"
                     {{ end }}

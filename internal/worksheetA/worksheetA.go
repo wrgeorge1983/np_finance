@@ -20,13 +20,6 @@ func NewForm(schedule *config.Schedule) *ws_Step.WorkSheet {
 			&Step9{},
 			&Step10{},
 			&Step11{},
-			&Step5{},
-			&Step6{},
-			&Step7{},
-			&Step8{},
-			&Step9{},
-			&Step10{},
-			&Step11{},
 		},
 	}
 }

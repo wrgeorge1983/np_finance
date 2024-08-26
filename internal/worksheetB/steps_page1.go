@@ -156,7 +156,7 @@ func (s *Step7) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkS
 func (s *Step7) Display() string {
 	mother, _ := s.OutputMother.Float64()
 	father, _ := s.OutputFather.Float64()
-	return fmt.Sprintf("Mother: $%.2f Father: $%.2f", mother, father)
+	return fmt.Sprintf("Mother: %v Father: %v", mother, father)
 }
 
 type Step8 struct {
@@ -167,11 +167,13 @@ type Step8 struct {
 func (s *Step8) Execute(config *config.WorksheetConfig, worksheet *ws_Step.WorkSheet) {
 	steps := &worksheet.Steps
 	step7 := (*steps)[6].(*Step7)
-	year := new(big.Rat)
-	year.SetInt64(365)
+	total := new(big.Rat)
+	total.Add(&step7.OutputMother, &step7.OutputFather)
+	//year := new(big.Rat)
+	//year.SetInt64(365)
 	// some math
-	s.OutputMother.Quo(&step7.OutputMother, year)
-	s.OutputFather.Quo(&step7.OutputFather, year)
+	s.OutputMother.Quo(&step7.OutputMother, total)
+	s.OutputFather.Quo(&step7.OutputFather, total)
 }
 
 func (s *Step8) Display() string {

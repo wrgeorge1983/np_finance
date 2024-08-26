@@ -5,8 +5,8 @@ import (
 	"io"
 
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 
+	"np_finance/internal/db"
 	"np_finance/internal/log"
 	"np_finance/internal/run_handle"
 )
@@ -26,7 +26,7 @@ func newTemplates() *Templates {
 }
 
 type Handler interface {
-	SetupRoutes(app *echo.Echo) error
+	SetupRoutes(app *echo.Echo, dbService *db.DB) error
 }
 
 var Handlers []Handler
@@ -36,15 +36,18 @@ func main() {
 	//app.Use(middleware.Logger())
 	log.NewLogger()
 	app.Use(log.LoggingMiddleware)
-	app.Use(middleware.Recover())
+	//app.Use(middleware.Recover())
 	app.Static("/images", "web/images")
 	app.Static("/css", "web/css")
 	app.Renderer = newTemplates()
 
+	dbService := db.NewDB("db")
+	defer dbService.Close()
+
 	Handlers = append(Handlers, &run_handle.RunHandlers{})
 
 	for _, handler := range Handlers {
-		err := handler.SetupRoutes(app)
+		err := handler.SetupRoutes(app, dbService)
 		if err != nil {
 			log.Logger.LogFatal().Msgf("Error: %v \nin Handler: %v", err, handler)
 		}

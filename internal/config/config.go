@@ -16,14 +16,6 @@ type WorksheetConfig struct {
 	Worksheet   string            `yaml:"worksheet"`
 	Schedule    string            `yaml:"schedule"`
 	NamedInputs map[string]string `yaml:"namedInputs"`
-	StepInputs  []struct {
-		Step   int    `yaml:"step"`
-		Title  string `yaml:"title"`
-		Inputs []struct {
-			Name  string `yaml:"name"`
-			Value string `yaml:"value"`
-		} `yaml:"inputs"`
-	} `yaml:"step_inputs"`
 }
 
 func (c *WorksheetConfig) ReadConfig(filename string) *WorksheetConfig {

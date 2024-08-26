@@ -1,0 +1,9 @@
+{{ block "DbControls" . }}
+
+<button hx-target="#dbOutput" hx-delete="/run/db">Purge the DB</button>
+<button hx-target="#dbOutput" hx-post="/run/db">Initialize the DB</button>
+<form action="/run/db"> <input type="submit"/> </form>
+
+<div id="dbOutput"></div>
+
+{{ end }}
