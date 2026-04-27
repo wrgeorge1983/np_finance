@@ -1,0 +1,59 @@
+title: Monthly Child Support Obligation
+worksheet: b
+schedule: basic-schedule.txt
+namedInputs:
+  motherSalary: 100
+  fatherSalary: 100
+  children: 2
+  motherDays: 209
+  fatherDays: 156
+  motherInsurance: 100
+  fatherInsurance: 0
+  motherChildcare: 100
+  fatherChildcare: 0
+  motherOtherExpense: 100
+  fatherOtherExpense: 0
+step_inputs:
+  - step: 1
+    title: GMI
+    inputs:
+      - name: mother
+        value: 100
+      - name: father
+        value: 100
+  - step: 3
+    title: Number of Children
+    inputs:
+      - name: number
+        value: 2
+  - step: 7
+    title: days/parent/year
+    inputs:
+      - name: mother
+        value: 209
+      - name: father
+        value: 156
+  - step: 12
+    title: Insurance Expenses
+    inputs:
+      - name: mother
+        value: 100
+      - name: father
+        value: 0
+  - step: 13
+    title: Childcare Expenses
+    inputs:
+      - name: mother
+        value: 100
+      - name: father
+        value: 0
+  - step: 14
+    title: Additional Expenses
+    inputs:
+      - name: mother
+        value: 100
+      - name: father
+        value: 0
+
+
+

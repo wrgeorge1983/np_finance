@@ -1,0 +1,50 @@
+title: Monthly Child Support Obligation
+worksheet: a
+schedule: 2024-basic-schedule.txt
+namedInputs:
+  motherSalary: 3100.31
+  fatherSalary: 16125.46
+  children: 2
+  motherInsurance: 85
+  fatherInsurance: 0
+  motherChildcare: 0
+  fatherChildcare: 0
+  motherOtherExpense: 0
+  fatherOtherExpense: 0
+step_inputs:
+  - step: 1
+    title: GMI
+    inputs:
+      - name: mother
+        value: 3100.31
+      - name: father
+        value: 16125.46
+  - step: 3
+    title: Number of Children
+    inputs:
+      - name: number
+        value: 2
+  - step: 5
+    title: Insurance Expenses
+    inputs:
+      - name: mother
+        value: 85
+      - name: father
+        value: 0
+  - step: 6
+    title: Childcare Expenses
+    inputs:
+      - name: mother
+        value: 0
+      - name: father
+        value: 0
+  - step: 7
+    title: Additional Expenses
+    inputs:
+      - name: mother
+        value: 0
+      - name: father
+        value: 0
+
+
+

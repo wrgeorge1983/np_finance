@@ -171,5 +171,16 @@ func (s *Step11) Execute(config *config.WorksheetConfig, worksheet *ws_Step.Work
 func (s *Step11) Display() string {
 	mother, _ := s.OutputMother.Float64()
 	father, _ := s.OutputFather.Float64()
-	return fmt.Sprintf("Mother: $%.2f Father: $%.2f", mother, father)
+	pay := father
+	payer := "Father"
+	if mother > father {
+		payer = "Mother"
+		pay = mother
+	} else if mother == father {
+		payer = "NONE"
+		pay = 0
+	}
+
+	return fmt.Sprintf("%s pays: $%.2f", payer, pay)
+	//return fmt.Sprintf("Mother: $%.2f Father: $%.2f", mother, father)
 }
